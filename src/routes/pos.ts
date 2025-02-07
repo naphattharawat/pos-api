@@ -40,10 +40,10 @@ router.get('/users', async (req: Request, res: Response) => {
 });
 router.get('/scan', async (req: Request, res: Response) => {
   try {
-    const code = req.query.code;
-    const product = await posModel.getProduct(req.db, code);
-    if (product.length) {
-      res.send({ ok: true, rows: product[0] });
+    const code:any = req.query.code;
+    const rs: any = await posModel.getProductCode(req.db, code.substring(0, 12))
+    if (rs.length) {
+      res.send({ ok: true, rows: rs[0] });
     } else {
       res.send({ ok: false, error: 'ไม่พบสินค้า' });
     }
@@ -59,7 +59,7 @@ router.post('/add', async (req: Request, res: Response) => {
     const price = code.substring(4, 11);
     console.log(code);
 
-    const rs: any = await posModel.getProductCode(req.db, code.substring(0, 11))
+    const rs: any = await posModel.getProductCode(req.db, code.substring(0, 12))
     if (rs.length) {
       res.send({ ok: true, rows: rs[0] });
     } else {
