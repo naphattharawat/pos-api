@@ -8,7 +8,7 @@ export class PosModel {
   }
   getProductCode(db: Knex.QueryInterface, code) {
     return db.table('products')
-      .whereRaw('left(barcode,11)=?', code)
+      .whereRaw('left(barcode,12)=?', code)
       .where('is_actived', 'Y')
       .limit(1);
   }
