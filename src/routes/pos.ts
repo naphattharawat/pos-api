@@ -56,7 +56,7 @@ router.post('/add', async (req: Request, res: Response) => {
     const code = req.body.code;
     const userCode = code.substring(0, 2);
     const typeCode = code.substring(2, 4);
-    const price = code.substring(4, 11);
+    const price = code.substring(4, 12);
     console.log(code);
 
     const rs: any = await posModel.getProductCode(req.db, code.substring(0, 12))
