@@ -47,6 +47,6 @@ export class PosModel {
         type_code: typeCode,
         price: price,
         user_code: userCode
-      });
+      }).onConflict('barcode').merge();
   }
 }
