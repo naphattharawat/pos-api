@@ -49,4 +49,15 @@ export class PosModel {
         user_code: userCode
       }).onConflict('barcode').merge();
   }
+  getReport1(db: any) {
+    return db.raw(`SELECT
+	o.created_date,o.price,o.net,o.type,od.details
+
+FROM
+	orders as o 
+	join (
+	select od.order_id,sum(od.price) as price,sum(od.net) as net,GROUP_CONCAT(concat(p.name,'-',od.net,'(',od.price,')')) as details from order_details as od 
+	join products as p on p.barcode = od.barcode
+	group by od.order_id) as od on o.id = od.order_id order by o.order_id`)
+  }
 }

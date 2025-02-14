@@ -76,7 +76,6 @@ router.post('/add', async (req: Request, res: Response) => {
     res.send({ ok: false, error: error.message });
   }
 });
-
 router.post('/order', async (req: Request, res: Response) => {
   try {
     const products = req.body.products;
@@ -112,5 +111,12 @@ router.post('/order', async (req: Request, res: Response) => {
     res.send({ ok: false, error: error.message });
   }
 });
-
+router.get('/report', async (req: Request, res: Response) => {
+  try {
+    const rs = await posModel.getReport1(req.db);
+    res.send({ ok: true, rows: rs[0] });
+  } catch (error) {
+    res.send({ ok: false, error: error.message });
+  }
+});
 export default router;
